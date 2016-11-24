@@ -1,12 +1,12 @@
 # ansible-heketi-sersync
 
-脚本功能：
+- 脚本功能：
 
 ~~~~
     通过ansible一键部署实现heketi工作目录的实时同步（因脚本的特殊性，仅公司内部使用）
 ~~~~
 
-示意图：（heketi主 通过sersync主动监听并实时像heketi备同步）
+- 示意图：（heketi主 通过sersync主动监听并实时向heketi备同步）
 
 ```
                 实时同步

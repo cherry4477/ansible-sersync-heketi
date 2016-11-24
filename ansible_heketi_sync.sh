@@ -56,13 +56,13 @@ for dir in `cat $sh_path/host_file | grep 'dir' | awk -F '=' '{print $NF}'`
   do
     num_file=`cat $sh_path/host_file | grep 'dir' |  awk -F '=' '{print $2}' | wc -w`  
     if [ $n -eq 1 ];then 
-         sed -i '/\[heketi\]/{n;d}' $sh_path/roles/rsync_install/files/rsyncd.conf
-         sed -i "/\[heketi\]/apath = $dir/" $sh_path/roles/rsync_install/files/rsyncd.conf
+         sed -i '/\[heketi\]/{n;d}' $sh_path/roles/rsync_install/templates/rsyncd.conf
+         sed -i "/\[heketi\]/apath = $dir/" $sh_path/roles/rsync_install/templates/rsyncd.conf
 #        sed '-i' "1,20 s#^path = .*#path = $dir#" $sh_path/roles/rsync_install/files/rsyncd.conf
     fi
     if [ $n -eq 2 ];then 
-         sed -i '/\[heketi_db\]/{n;d}' $sh_path/roles/rsync_install/files/rsyncd.conf
-         sed -i "/\[heketi_db\]/apath = $dir/" $sh_path/roles/rsync_install/files/rsyncd.conf
+         sed -i '/\[heketi_db\]/{n;d}' $sh_path/roles/rsync_install/templates/rsyncd.conf
+         sed -i "/\[heketi_db\]/apath = $dir/" $sh_path/roles/rsync_install/templates/rsyncd.conf
 #         sed -i "'/'[heketi_db']'/{ n; s/path = .*/path = $dir/;}" $sh_path/roles/rsync_install/files/rsyncd.conf
 #        sed '-i' "21,25 s#^path = .*#path = $dir#" $sh_path/roles/rsync_install/files/rsyncd.conf
     fi
@@ -71,7 +71,7 @@ done
 
 
 # 执行ansible剧本
-ansible sync '-i' $sh_path/host_file '-m' shell '-a' "mkdir -p {{ dir1 }} {{ dir2 }}"
+ansible sync '-i' $sh_path/host_file '-s' '-m' shell '-a' "mkdir -p {{ dir1 }} {{ dir2 }}"
 ansible-playbook '-i' $sh_path/host_file all.yml
 
 # 删除临时文件
